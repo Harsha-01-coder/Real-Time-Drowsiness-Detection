@@ -146,11 +146,13 @@ st.markdown("""
 # Model check
 # ══════════════════════════════════════════════════════════════════
 if not os.path.isfile(MODEL_PATH):
-    st.error(
-        f"Model file `{MODEL_PATH}` not found. "
-        f"Run `python download_model.py` first."
-    )
-    st.stop()
+    with st.spinner("Downloading required MediaPipe model..."):
+        from download_model import main as dl_main
+        try:
+            dl_main()
+        except Exception as e:
+            st.error(f"Failed to download model file: {e}")
+            st.stop()
 
 # ══════════════════════════════════════════════════════════════════
 # Alarm sound generator (pure Python, no JS logic)
