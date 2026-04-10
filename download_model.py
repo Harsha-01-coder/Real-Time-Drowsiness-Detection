@@ -42,7 +42,7 @@ def main() -> None:
              print(f"[ERROR] '{MODEL_FILE}' was not created.")
     except Exception as e:
         print(f"[ERROR] Failed to download model: {e}")
-        sys.exit(1)
+        raise RuntimeError(f"Failed to download model: {e}")
 
 if __name__ == "__main__":
     main()
