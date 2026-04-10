@@ -238,7 +238,10 @@ def video_callback(frame: av.VideoFrame) -> av.VideoFrame:
     landmarker = shared.get_landmarker()
     try:
         result = landmarker.detect(mp_image)
-    except Exception:
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print(f"MediaPipe Detect Error: {e}")
         return av.VideoFrame.from_ndarray(img, format="bgr24")
 
     ear = 0.0
